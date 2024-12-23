@@ -1,57 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
+import { Box, ThemeProvider } from '@mui/system';
+import { Header } from './components';
+import { Layout } from './components';
+import { darkTheme } from './config/theme';
+import { Routes, Route } from 'react-router-dom';
+import {
+  CategoryList,
+  CreateCategory,
+  EditCategory,
+} from './features/categories';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <Box
+        component="main"
+        sx={{
+          height: '100vh',
+          backgroundColor: 'background.default',
+          color: 'white',
+        }}
+      >
+        <Header />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<CategoryList />} />
+            <Route path="/categories" element={<CategoryList />} />
+            <Route path="categories/create" element={<CreateCategory />} />
+            <Route path="categories/edit/:id" element={<EditCategory />} />
+            <Route path="*" element={<h1>404</h1>} />
+          </Routes>
+        </Layout>
+      </Box>
+    </ThemeProvider>
   );
 }
 
